@@ -413,7 +413,7 @@ class Skeleton:
                 bs.seek(channel.keysOffset)
                 for j in range(channel.keysCount):
                     if keyBytesCount >= 4:
-                        time = bs.readUShort() / 65535 * duration
+                        time = bs.readUShort() / 65535 * duration * 2
                         rotIndex = bs.readUShort()
 
                         mat = NoeQuat.toMat43(keylib.rotations[rotIndex])
@@ -530,6 +530,7 @@ def trbLoadModel(data, mdlList):
         mdl.setBones(tmdl.skeleton.bones)
         mdl.setAnims(tmdl.skeleton.anims)
 
+    rapi.setPreviewOption("setAnimSpeed", "60")
     rapi.processCommands("-rotate 90 0 0")
     rapi.processCommands("-scale 100")
     rapi.processCommands("-combinemeshes")
